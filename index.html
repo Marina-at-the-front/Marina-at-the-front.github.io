@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Срач с Андреем</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap" rel="stylesheet">
+<style>
+    body {
+        font-family: "Comfortaa", sans-serif;
+        font-optical-sizing: auto;
+        font-style: normal;
+        font-size: 300%;
+        color:cadetblue;
+        background-color: black;
+    }
+
+    .wrapper {
+        max-width: 1440px;
+        padding: 50px 30px;
+        margin: 0 auto;
+    }
+
+    .info {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    img {
+        display: block;
+        width: 50%;
+        border-radius: 24px;
+        margin: 0 auto;
+    }
+
+</style>
+<body>
+    <main>
+        <div class="wrapper">
+          <div class="info">
+<p id="info1">Switch on JS</p>
+<p>Дней без срача: 0</p>
+</div>      
+<img src="img/Andrew.jpg" alt="">
+        </div>
+    </main>
+</body>
+
+
+<script>
+ setInterval((function() {
+  let id = arguments[0];
+  if (id === undefined) { console.log('Передайте id элемента в функцию'); return; } 
+  let elem = document.getElementById (id);
+  if (!elem) { console.log('Элемент с id="'+id+'" не найден'); return; } 
+  if (arguments.length !== 5) { console.log('Передайте id, строку, день, месяц, год в функцию'); return; } 
+  let str = arguments[1], d = parseInt(arguments[2]), m = parseInt(arguments[3]), y = parseInt(arguments[4]);
+  if (isNaN(y) || isNaN(m) || isNaN(d) || y<1582 || y>9999 || m<1 || m>12 || d<1 || d>31) {
+   console.log('Передайте корректную дату в функцию'); return;
+  }
+  let startDate = new Date(y, m-1, d);
+  let today = new Date();
+  let diffDays = Math.ceil((today - startDate) / (1000 * 60 * 60 * 24));
+  if (diffDays < 1) { console.log('Передайте дату раньше текущей в функцию'); return; }
+  elem.innerText = str + ' ' + diffDays + ' ' + goodwordform(diffDays,'д','ень','ня','ней') + ' назад';
+  function goodwordform(k,w,o1,o2,o5) {
+   if ( (k%100>10 && k%100<20) || k%10>4 || k%10==0) w+=o5;
+   else if (k%10==1) w+=o1;
+   else w+=o2;
+   return w;
+  } 
+ })('info1','Андрей вернулся в беседу:',27,2,2024),60000);
+ //Меняем аккуратно только аргументы из предыдущей строки: id элемента,'текст',день,месяц,год
+ //Частота самообновления элемента - раз в минуту, 60000 мс = 60 сек
+</script>
